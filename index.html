@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+
+            :root
+            {
+                font-family: system-ui;
+                color: #5e5e5e;
+            }
+
+            #filebar, #toolbar, #annotations
+            {
+                background: rgb(213, 213, 213);
+                margin-bottom: 10px;
+                margin-top: 10px;
+
+                border:  1px solid #b3b3b3;
+                box-shadow: 1px 1px 3px rgb(194, 194, 194);
+                border-radius: 3px;
+            }
+
+            .control-label
+            {
+                /* background-color: rgb(255, 255, 255); */
+                
+            }
+
+            #toolbar button.toggled
+            {
+                /* background-color: rgb(255, 255, 255); */
+                background-color: rgb(144, 144, 144);
+                color: rgb(219, 219, 219)
+            }
+
+            #filebar *, #toolbar *
+            {
+                display: inline;
+                margin: 5px;
+            }
+
+            #fileInput
+            {
+                background-color: rgb(255, 255, 255);
+                
+            }
+
+            #annotations
+            {
+                background-color: rgb(213, 213, 213);
+                padding: 10px;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+
+            #annotations h1
+            {
+                margin: 5px;
+                color: #5e5e5e;
+            }
+
+            #annotations .add-new
+            {
+                width: -webkit-fill-available;
+                /* text-align: center; */
+                background-color: rgb(255, 255, 255);
+                margin: 5px;
+            }
+
+            .annotation.active
+            {
+                display: flex;
+                flex-direction: row-reverse;
+                margin: 5px;
+                opacity: 100%;
+            }
+
+            .annotation
+            {
+                display: flex;
+                flex-direction: row-reverse;
+                margin: 10px;
+                opacity: 50%;
+            }
+
+            .annotation .note
+            {
+                width: 100%;
+            }
+
+            .annotation .buttons
+            {
+                display: flex;
+                flex-direction: column;
+                width: 50px;
+                /* text-align: right;
+                font-size: 0px; */
+            }
+
+            .annotation .buttons button
+            {
+                margin: 0px;
+                /* background: white; */
+                /* border: none; */
+            }
+
+
+
+            /*viewport containers*/
+
+            .viewport-container
+            {
+                display:inline-block
+            }
+
+            /*buttons*/
+            /*
+            <div class="viewport-container">
+                <div id="viewport3" style="height:400px; width:400px; background-color:black; position:relative;"></div>
+                <div class="slice-number">-</div>
+                <div class="buttons">
+                    <button class="previous">Previous</button>
+                    <button class="next">Next</button>
+                </div>
+            </div>
+            */
+
+            .viewport-container .buttons
+            {
+                display: flex;
+                background-color: rgb(213, 213, 213);
+                margin-bottom: 10px;
+                width: 398px;
+
+                
+                border:  1px solid #b3b3b3;
+                box-shadow: 1px 1px 3px rgb(194, 194, 194);;
+                border-radius: 0px 0px 3px 3px;
+                border-bottom: 3px;
+            }
+
+            .viewport-container .buttons *
+            {
+                margin:5px;
+            }
+
+
+
+
+        </style>
+    </head>
+
+    <body>
+
+        <!-- <div id="viewport0" style="width:400px; height:240px; background-color:grey;"></div>
+        <div id="viewport1" style="width:400px; height:240px; background-color:grey;"></div> -->
+        
+        <div id="filebar">
+            <h5 style="margin-right: 0px;">Load a stack:</h5>
+            <input type="file" id="fileInput" multiple>
+            <div style="display: inline-block; width:10px;"></div>
+            <button>Load Project</button>
+            <div style="display: inline-block; width:10px;"></div>
+            <button>Save Project</button>
+        </div>
+
+        <!-- The annotation list -->
+        <div id="annotations">
+            <h1>Annotations:</h1>
+            <div id="annotationListHolder">
+                <!-- <div class="annotation">
+                    <div class="buttons">
+                        <button>^</button>
+                        <button>v</button>
+                        <button>X</button>
+                    </div>
+                    <textarea class="note">Example Annotation</textarea>
+                </div>
+                change to allow clicking the annotation etc. -->
+            </div>
+        </div>
+
+
+        <!-- these divs are parents of the sliceviewers so they handle the events for them
+         must be position: relative so that sliceviewer and slicedrawer can position over it-->
+
+        <div id="toolbar">
+            <button id="toggle-pen">Pen</button>
+            <button id="toggle-eraser">Eraser</button>
+            
+            <label for="pen-size">Pen Size</label>
+            <input id="pen-size" type="number" name="Size" min="1" value="50">
+            <button>Others</button>
+        </div>
+
+        <div class="viewport-container">
+            <div id="viewport1" style="height:400px; width:400px; background-color:black; position:relative;"></div>
+            <div class="buttons">
+                <button class="previous">Previous</button>
+                <div class="slice-number">-</div>
+                <button class="next">Next</button>
+            </div>
+        </div>
+
+        <div class="viewport-container">
+            <div id="viewport2" style="height:400px; width:400px; background-color:black; position:relative;"></div>
+            <div class="buttons">
+                <button class="previous">Previous</button>
+                <div class="slice-number">-</div>
+                <button class="next">Next</button>
+            </div>
+        </div>
+
+        
+        <div class="viewport-container">
+            <div id="viewport3" style="height:400px; width:400px; background-color:black; position:relative;"></div>
+            <div class="buttons">
+                <button class="previous">Previous</button>
+                <div class="slice-number">-</div>
+                <button class="next">Next</button>
+            </div>
+        </div>
+
+
+
+
+        <script src="GlobalDeclarations.js"></script>
+        <script src="Volume.js"></script>
+        <script src="SliceViewer.js"></script>
+        <script src="SliceDrawer.js"></script>
+        <script src="UI.js"></script>
+        <script src="Annotations.js"></script>
+
+    </body>
+</html>

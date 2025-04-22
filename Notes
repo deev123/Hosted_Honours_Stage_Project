@@ -1,0 +1,2 @@
+npx vite to host
+npm run build to package into distr directory (change in vite.config.js)
