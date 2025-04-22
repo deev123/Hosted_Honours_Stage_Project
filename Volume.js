@@ -52,6 +52,7 @@ class Volume
                     function loadAllImages(imageFiles)
                     {
                         let imageFileArray = Array.from(imageFiles);
+                        imageFileArray = imageFileArray.sort((a,b) => {return a.name.localeCompare(b.name, {numeric: true, sensitivity: 'base'})});
                         // console.log(imageFileArray);
                         return Promise.all(imageFileArray.map(loadImage));
                     }
